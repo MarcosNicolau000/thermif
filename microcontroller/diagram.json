@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "author": "Marcos Nicolau",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": -163.2,
+      "left": -292.76,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd1",
+      "top": -12.8,
+      "left": -138.4,
+      "attrs": { "pins": "i2c" }
+    },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -28.5,
+      "left": -379.8,
+      "attrs": { "humidity": "30.5", "temperature": "62.2" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "lcd1:VCC", "esp:5V", "red", [ "h-19.2", "v115.3", "h-105.6" ] ],
+    [ "esp:GND.3", "lcd1:GND", "black", [ "h38.4", "v96" ] ],
+    [ "esp:22", "lcd1:SCL", "green", [ "h28.8", "v163.2" ] ],
+    [ "esp:21", "lcd1:SDA", "green", [ "h19.2", "v124.8" ] ],
+    [ "dht1:GND", "esp:GND.1", "black", [ "v19.2", "h19.2", "v-124.8" ] ],
+    [ "esp:3V3", "dht1:VCC", "red", [ "h-19.05", "v172.8", "h0", "v86.4", "h-57.6" ] ],
+    [ "esp:15", "dht1:SDA", "green", [ "v0", "h9.6", "v105.6", "h-163.2" ] ]
+  ],
+  "dependencies": {}
+}
