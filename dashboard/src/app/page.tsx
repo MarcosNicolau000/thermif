@@ -1,11 +1,10 @@
 import Footer from '../components/Footer';
+import MeasurementCard from '@/components/MeasurementCards';
 
 export default function Home() {
   return (
     <>
-      <main>
-        <h1>Therm IF</h1>
-      </main>
+      <MeasurementCard/>
       <Footer />
     </>
   );
