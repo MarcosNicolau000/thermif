@@ -30,7 +30,7 @@
 **yarn-error.log*
 **.pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files (can opt-in for comzmitting if needed)
 **.env*
 
 # vercel
@@ -41,4 +41,4 @@
 **next-env.d.ts
 
 
-/microcontroller
+*.pio
