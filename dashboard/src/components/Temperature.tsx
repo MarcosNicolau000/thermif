@@ -2,7 +2,7 @@ import Image from "next/image";
 import MeasurementCard from "./MeasurementCards";
 
 export default function Temperature() {
-  const temperature = 1 0;
+  const temperature = 19;
   let bgImage =  "/normal-temperature-background.png";
   if (temperature < 20) {
     bgImage = "/cold-temperature-background.png";

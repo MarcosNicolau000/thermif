@@ -39,3 +39,5 @@
 # typescript
 **.tsbuildinfo
 **next-env.d.ts
+
+**.pio
