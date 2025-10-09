@@ -41,3 +41,7 @@
 **next-env.d.ts
 
 **.pio
+
+thermif-firebase-adminsdk.json
+
+firebaseConfig.tsx

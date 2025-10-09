@@ -1,18 +1,18 @@
-import Image from "next/image";
+"use client";
+
+import { useSensorData } from "@/hooks/useSensorData";
 import MeasurementCard from "./MeasurementCards";
 
 export default function Temperature() {
-  const temperature = 19;
-  let bgImage =  "/normal-temperature-background.png";
-  if (temperature < 20) {
-    bgImage = "/cold-temperature-background.png";
-  }
+  const { temperature, humidity, bgImageTemperature } = useSensorData();
 
   return (
-    <section className="relative w-full min-h-screen bg-repeat bg-cover bg-bottom flex-items items-center justify-center"
-    style={{backgroundImage: `url(${bgImage})`}}>
+    <section
+      className="relative w-full min-h-screen bg-repeat bg-cover bg-bottom flex items-center justify-center"
+      style={{ backgroundImage: `url(${bgImageTemperature})` }}
+    >
       <div className="relative z-10">
-       <MeasurementCard temperature={temperature} humidity={20}/>
+        <MeasurementCard temperature={temperature} humidity={humidity} />
       </div>
     </section>
   );
