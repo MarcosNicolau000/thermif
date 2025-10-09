@@ -1,4 +1,4 @@
-/* #include <Arduino.h>
+#include <Arduino.h>
 
 #define ENABLE_USER_AUTH
 #define ENABLE_DATABASE
@@ -10,10 +10,11 @@
 #include <WiFiClientSecure.h>
 #include <FirebaseClient.h>
 
-#define WIFI_SSID "Wokwi-GUEST"
-#define WIFI_PASSWORD ""
+#define WIFI_SSID "Samsung M54"
+#define WIFI_PASSWORD "SantidadeAoSenhor123"
 
-#define Web_API_KEY ""
+
+#define Web_API_KEY "AIzaSyA243Ru2idMnJ8jcv5C8q5AIbX1AtLTIto"
 #define DATABASE_URL "https://thermif-default-rtdb.firebaseio.com/"
 #define USER_EMAIL "teste123@gmail.com"
 #define USER_PASS "teste123"
@@ -41,7 +42,7 @@ const unsigned long sendInterval = 10000; // 10 seconds in milliseconds
 
 // Variables to send to the database
 #define DHTPIN 15     
-#define DHTTYPE DHT22
+#define DHTTYPE DHT11
 LiquidCrystal_I2C lcd(ende,16,2);
 DHT dht(DHTPIN, DHTTYPE);
 
@@ -49,7 +50,7 @@ DHT dht(DHTPIN, DHTTYPE);
 
 void setup(){
   
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   // Connect to Wi-Fi
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -65,7 +66,6 @@ void setup(){
   ssl_client.setTimeout(1000);
   ssl_client.setHandshakeTimeout(5);
   
-}
   // Initialize Firebase
   initializeApp(aClient, app, getAuth(user_auth), processData, "🔐 authTask");
   app.getApp<RealtimeDatabase>(Database);
@@ -79,14 +79,14 @@ void loop() {
   lcd.clear(); 
   lcd.backlight(); 
   dht.begin();
-  float humidity = dht.readHumidity();
-  float temperature = dht.readTemperature();
-  lcdPrintInfo(humidity, temperature);
   app.loop();
   if (app.ready()){ 
     unsigned long currentTime = millis();
     if (currentTime - lastSendTime >= sendInterval){
       lastSendTime = currentTime;     
+      float humidity = dht.readHumidity();
+      float temperature = dht.readTemperature();
+      lcdPrintInfo(humidity, temperature);
       Database.set<float>(aClient, "/currentSensorData/humidity", humidity, processData, "RTDB_Send_Float");
       Database.set<float>(aClient, "/currentSensorData/temperature", temperature, processData, "RTDB_Send_Float");
     }
@@ -127,42 +127,4 @@ void lcdPrintInfo(float humidity, float temperature ) {
   lcd.print(temperature);
   lcd.print((char)223); 
   lcd.print("C"); 
-} */
-
-
-#include "DHT.h"
- 
-#define DHTPIN 23 
-#define DHTTYPE DHT11 // DHT 11
- 
-
-DHT dht(DHTPIN, DHTTYPE);
- 
-void setup() 
-{
-  Serial.begin(9600);
-  Serial.println("DHTxx test!");
-  dht.begin();
-}
- 
-void loop() 
-{
- 
-  float h = dht.readHumidity();
-  float t = dht.readTemperature();
-  // testa se retorno é valido, caso contrário algo está errado.
-  if (isnan(t) || isnan(h)) 
-  {
-    Serial.println("Falha na leitura do sensor DHT");
-  } 
-  else
-  {
-    Serial.print("Umidade: ");
-    Serial.print(h);
-    Serial.print("  ");
-    Serial.print("Temperatura: ");
-    Serial.print(t);
-    Serial.println(" *C");
-  }
-  delay(1000);
 }
