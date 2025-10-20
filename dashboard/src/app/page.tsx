@@ -1,16 +1,11 @@
-import Footer from '../components/Footer';
-import MeasurementCard from '@/components/MeasurementCards';
-import Temperature from '@/components/Temperature';
+import Temperature from "@/components/Temperature";
 
 export default function Home() {
   return (
     <>
       <div>
-        <MeasurementCard/>  
-        <Temperature/>
+        <Temperature />
       </div>
-
-      <Footer />
     </>
   );
 }

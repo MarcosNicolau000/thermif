@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Paisagem de clima frio moderado">
+  <defs>
+    <!-- Sky gradient -->
+    <linearGradient id="gSky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#9ed8ff"/>
+      <stop offset="1" stop-color="#cfefff"/>
+    </linearGradient>
+
+    <!-- Distant hills -->
+    <linearGradient id="gHillFar" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#c9e6fb"/>
+      <stop offset="1" stop-color="#a6d3f6"/>
+    </linearGradient>
+
+    <!-- Middle hills -->
+    <linearGradient id="gHillMid" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#a8d0f2"/>
+      <stop offset="1" stop-color="#83b9e6"/>
+    </linearGradient>
+
+    <!-- Foreground snow -->
+    <linearGradient id="gSnow" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#e6f5ff"/>
+    </linearGradient>
+
+    <!-- Tree fill variations -->
+    <linearGradient id="gTreeDark" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#2b6aa0"/>
+      <stop offset="1" stop-color="#285f94"/>
+    </linearGradient>
+    <linearGradient id="gTreeLight" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#3a79b8"/>
+      <stop offset="1" stop-color="#2f68a3"/>
+    </linearGradient>
+
+    <!-- Soft shadow for shapes -->
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#000" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background sky -->
+  <rect x="0" y="0" width="1400" height="900" fill="url(#gSky)"/>
+
+  <!-- Clouds (simple shapes, spaced horizontally) -->
+  <g fill="#f7fcff" opacity="0.95">
+    <path d="M220 150c0-30 45-30 45-30s12-40 60-30 58 38 58 38 58-8 80 18 0 46-58 46H220z"/>
+    <path d="M920 180c0-22 35-22 35-22s10-28 48-22 40 26 40 26 40-6 56 14 0 34-40 34H920z"/>
+    <path d="M1160 110c0-16 26-16 26-16s7-18 38-12 30 18 30 18 30-4 42 10 0 24-30 24H1160z"/>
+  </g>
+
+  <!-- Distant hills -->
+  <g transform="translate(0,120)">
+    <path d="M0 420 C180 300 360 320 560 380 C760 440 980 360 1400 410 L1400 900 L0 900 Z" fill="url(#gHillFar)"/>
+  </g>
+
+  <!-- Middle hills -->
+  <g transform="translate(0,180)">
+    <path d="M0 440 C200 360 420 340 620 380 C820 420 1060 350 1400 420 L1400 900 L0 900 Z" fill="url(#gHillMid)" opacity="0.95"/>
+  </g>
+
+  <!-- Low mid overlay for subtle depth -->
+  <g transform="translate(0,220)" opacity="0.92">
+    <path d="M0 460 C180 420 400 420 620 440 C840 460 1100 420 1400 460 L1400 900 L0 900 Z" fill="#bfe6fb"/>
+  </g>
+
+  <!-- Foreground snow mounds -->
+  <g filter="url(#softShadow)">
+    <path d="M0 600 C140 560 280 560 420 600 C560 640 740 620 920 600 C1100 580 1260 620 1400 600 L1400 900 L0 900 Z"
+          fill="url(#gSnow)"/>
+    <path d="M0 660 C180 620 340 610 520 650 C700 690 940 660 1200 640 L1400 680 L1400 900 L0 900 Z"
+          fill="#f2fbff"/>
+  </g>
+
+  <!-- Small foreground mound to add shape -->
+  <path d="M80 720 C180 700 260 690 360 710 C460 730 600 720 740 700 C880 680 1060 700 1240 700 L1240 820 L80 820 Z"
+        fill="#eaf8ff" opacity="0.95"/>
+
+  <!-- Trees (two stylized evergreens) -->
+  <!-- Left small tree -->
+  <g transform="translate(260,620)">
+    <rect x="-8" y="140" width="16" height="60" rx="2" fill="#2f4b5e"/>
+    <path d="M-70 120 C-40 80 -10 80 20 120 C-10 110 -5 70 20 40 C-40 60 -10 20 -70 40 Z"
+          fill="url(#gTreeLight)" transform="scale(0.45) translate( -60, 60)"/>
+    <path d="M-72 110 C-42 70 -12 70 18 110 C-12 100 -6 68 18 42 C-42 62 -12 26 -72 42 Z"
+          fill="url(#gTreeDark)" transform="scale(0.35) translate(-65, 90)" opacity="0.95"/>
+  </g>
+
+  <!-- Right larger tree -->
+  <g transform="translate(1040,560)">
+    <rect x="-12" y="140" width="24" height="90" rx="2" fill="#2f4b5e"/>
+    <path d="M-120 100 C-80 30 -30 30 20 100 C-10 80 10 40 20 10 C-30 30 -10 0 -120 10 Z"
+          fill="url(#gTreeLight)" transform="scale(0.9) translate(-60, 20)"/>
+    <path d="M-122 130 C-82 60 -32 60 18 130 C-12 110 6 70 18 40 C-32 60 -12 30 -122 40 Z"
+          fill="url(#gTreeDark)" transform="scale(0.85) translate(-70, 40)" opacity="0.98"/>
+  </g>
+
+  <!-- Small shrubs on horizon -->
+  <g transform="translate(820,680)" fill="#9fc3e9" opacity="0.85">
+    <ellipse cx="0" cy="20" rx="48" ry="22"/>
+    <ellipse cx="60" cy="18" rx="36" ry="16"/>
+  </g>
+
+  <!-- Subtle ground shadows near trees to anchor them -->
+  <ellipse cx="260" cy="800" rx="70" ry="18" fill="#d9f0ff" opacity="0.45"/>
+  <ellipse cx="1040" cy="830" rx="120" ry="28" fill="#d9f0ff" opacity="0.45"/>
+
+  <!-- Decorative front detail: tiny snow tufts -->
+  <g opacity="0.9" fill="#f6fdff">
+    <ellipse cx="120" cy="780" rx="30" ry="10"/>
+    <ellipse cx="320" cy="760" rx="20" ry="8"/>
+    <ellipse cx="1240" cy="760" rx="28" ry="10"/>
+  </g>
+
+  <!-- Accessibility: title and description -->
+  <title>Frio Moderado - paisagem minimalista de inverno</title>
+  <desc>Colinas distantes em azul suave, vales e neve no primeiro plano, duas árvores tipo pinheiro à direita e à esquerda, céu limpo com nuvens.</desc>
+</svg>
