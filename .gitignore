@@ -45,3 +45,5 @@
 thermif-firebase-adminsdk.json
 
 firebaseConfig.tsx
+
+.vscode
