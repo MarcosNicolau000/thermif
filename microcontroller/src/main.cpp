@@ -3,25 +3,24 @@
 #define ENABLE_USER_AUTH
 #define ENABLE_DATABASE
 
-#include <Wire.h> 
-#include <LiquidCrystal_I2C.h> 
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 #include "DHT.h"
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <FirebaseClient.h>
 
-#define WIFI_SSID "Samsung M54"
-#define WIFI_PASSWORD "SantidadeAoSenhor123"
+#define WIFI_SSID "SSID-WIFI"
+#define WIFI_PASSWORD "SENHA-WIFI"
 
-
-#define Web_API_KEY "AIzaSyA243Ru2idMnJ8jcv5C8q5AIbX1AtLTIto"
-#define DATABASE_URL "https://thermif-default-rtdb.firebaseio.com/"
-#define USER_EMAIL "teste123@gmail.com"
+#define Web_API_KEY "API-FIREBASE"
+#define DATABASE_URL "LINK DO RTDB"
+#define USER_EMAIL "teste@123.com"
 #define USER_PASS "teste123"
 
-#define col  16 
-#define lin  2 
-#define ende 0x27 
+#define col 16
+#define lin 2
+#define ende 0x27
 
 void processData(AsyncResult &aResult);
 void lcdPrintInfo(float humidity, float temperature);
@@ -41,59 +40,71 @@ unsigned long lastSendTime = 0;
 const unsigned long sendInterval = 10000; // 10 seconds in milliseconds
 
 // Variables to send to the database
-#define DHTPIN 15     
+#define DHTPIN 15
 #define DHTTYPE DHT11
-LiquidCrystal_I2C lcd(ende,16,2);
+LiquidCrystal_I2C lcd(ende, 16, 2);
 DHT dht(DHTPIN, DHTTYPE);
 
+float humidity;
+float temperature;
+void setup()
+{
 
-
-void setup(){
-  
   Serial.begin(9600);
 
   // Connect to Wi-Fi
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED)
+  {
     Serial.print(".");
     delay(300);
   }
   Serial.println();
-  
+
   // Configure SSL client
   ssl_client.setInsecure();
   ssl_client.setTimeout(1000);
   ssl_client.setHandshakeTimeout(5);
-  
+
   // Initialize Firebase
   initializeApp(aClient, app, getAuth(user_auth), processData, "🔐 authTask");
   app.getApp<RealtimeDatabase>(Database);
   Database.url(DATABASE_URL);
-  
+  lcd.init();
+
 }
 
-void loop() {
+void loop()
+{
   delay(500);
-  lcd.init(); 
-  lcd.clear(); 
-  lcd.backlight(); 
+  lcd.backlight();
   dht.begin();
   app.loop();
-  if (app.ready()){ 
+  if (app.ready())
+  {
     unsigned long currentTime = millis();
-    if (currentTime - lastSendTime >= sendInterval){
-      lastSendTime = currentTime;     
-      float humidity = dht.readHumidity();
-      float temperature = dht.readTemperature();
-      lcdPrintInfo(humidity, temperature);
+    if (currentTime - lastSendTime >= sendInterval)
+    {
+      humidity = dht.readHumidity();
+      temperature = dht.readTemperature();
       Database.set<float>(aClient, "/currentSensorData/humidity", humidity, processData, "RTDB_Send_Float");
       Database.set<float>(aClient, "/currentSensorData/temperature", temperature, processData, "RTDB_Send_Float");
+      lastSendTime = currentTime;
     }
   }
- 
+  lcd.setCursor(0, 0);
+  lcd.print("HUM: ");
+  lcd.print(humidity);
+  lcd.print("%");
+  lcd.setCursor(0, 1);
+  lcd.print("TEMP: ");
+  lcd.print(temperature);
+  lcd.print((char)223);
+  lcd.print("C");
 }
-void processData(AsyncResult &aResult) {
+void processData(AsyncResult &aResult)
+{
   if (!aResult.isResult())
     return;
 
@@ -110,21 +121,22 @@ void processData(AsyncResult &aResult) {
     Firebase.printf("task: %s, payload: %s\n", aResult.uid().c_str(), aResult.c_str());
 }
 
-void lcdPrintInfo(float humidity, float temperature ) {
-  if (isnan(humidity) || isnan(temperature)) {
-    lcd.clear();
-    lcd.setCursor(0, 0); 
+void lcdPrintInfo(float humidity, float temperature)
+{
+  if (isnan(humidity) || isnan(temperature))
+  {
+    lcd.setCursor(0, 0);
     lcd.print(" ERROR! ");
     return;
   }
 
-  lcd.setCursor(0, 0); 
+  lcd.setCursor(0, 0);
   lcd.print("HUM: ");
-  lcd.print(humidity); 
-  lcd.print("%");  
-  lcd.setCursor(0, 1); 
-  lcd.print("TEMP: ");  
+  lcd.print(humidity);
+  lcd.print("%");
+  lcd.setCursor(0, 1);
+  lcd.print("TEMP: ");
   lcd.print(temperature);
-  lcd.print((char)223); 
-  lcd.print("C"); 
+  lcd.print((char)223);
+  lcd.print("C");
 }

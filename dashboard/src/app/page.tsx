@@ -1,3 +1,5 @@
+"use client"
+
 import Temperature from "@/components/Temperature";
 
 export default function Home() {
