@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 
 
-export default function Temperature() {
+export default function   Temperature() {
   const [temperature, setTemperature] = useState(null);
   const [humidity, setHumidity] = useState(null);
   const [loading, setLoading] = useState(true);
